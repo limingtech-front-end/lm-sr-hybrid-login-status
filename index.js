@@ -11,12 +11,12 @@ var cachedIsLogedin = false,
         wechat: wechatLoginStatus,
         browser: function(){
             var localSavedUserInfo=localStorage.getItem('user')
-            return localSavedUserInfo ? Promise.resolve(JSON.parse(localSavedUserInfo)) : Promise.reject()
+            return localSavedUserInfo ? Promise.resolve(JSON.parse(localSavedUserInfo)) : Promise.reject({})
         }
     })
 
 function getLoginStatusFunc(success, fail) {
-	console.log('getting login status')
+    console.log('getting login status')
     getLoginStatus().then((userInfo) => {
         cachedIsLogedin = !!userInfo.userId
         cachedUserInfo = userInfo
@@ -31,17 +31,17 @@ function getLoginStatusFunc(success, fail) {
 module.exports={
         isLogedin:function() {
             return new Promise((resolve, reject) => {
-    			console.log('trigger login check')
+                console.log('trigger login check')
                 getLoginStatusFunc(()=>{
-                    cachedIsLogedin ? resolve() : reject()
+                    cachedIsLogedin ? resolve(true) : reject(false)
                 },reject)
             })
         },
         userInfo:function() {
-        	return new Promise((resolve, reject) => {
-    			console.log('trigger getting userInfo')
+            return new Promise((resolve, reject) => {
+                console.log('trigger getting userInfo')
                 getLoginStatusFunc(() => {
-                    !!cachedUserInfo ? resolve() : reject()
+                    !!cachedUserInfo ? resolve(cachedUserInfo) : reject(null)
                 }, reject)
             })
         },
