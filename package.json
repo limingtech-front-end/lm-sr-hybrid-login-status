@@ -1,0 +1,25 @@
+{
+  "name": "lm-sr-hybrid-login-status",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limingtech-front-end/lm-sr-hybrid-login-status.git"
+  },
+  "author": "littlstonee <littlstonee@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/limingtech-front-end/lm-sr-hybrid-login-status/issues"
+  },
+  "homepage": "https://github.com/limingtech-front-end/lm-sr-hybrid-login-status#readme",
+  "dependencies": {
+    "lm-na-sr-login-status": "git+https://github.com/limingtech-front-end/lm-na-sr-login-status.git",
+    "lm-se-client-info": "git+https://github.com/limingtech-front-end/lm-se-client-info.git",
+    "lm-th-wx-sr-login-status": "git+https://github.com/limingtech-front-end/lm-th-wx-sr-login-status.git",
+    "lm-ut-calc-platform-method": "git+https://github.com/limingtech-front-end/lm-ut-calc-platform-method.git"
+  }
+}
