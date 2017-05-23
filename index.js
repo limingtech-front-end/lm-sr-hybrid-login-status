@@ -30,17 +30,17 @@ function getLoginStatusFunc(success, fail) {
 
 module.exports={
         isLogedin:function() {
-            return new Promise((resolve, reject) => {
+            return new Promise(function(resolve, reject){
                 console.log('trigger login check')
-                getLoginStatusFunc(()=>{
+                getLoginStatusFunc(function(){
                     cachedIsLogedin ? resolve(true) : reject(false)
                 },reject)
             })
         },
         userInfo:function() {
-            return new Promise((resolve, reject) => {
+            return new Promise(function(resolve, reject){
                 console.log('trigger getting userInfo')
-                getLoginStatusFunc(() => {
+                getLoginStatusFunc(function(){
                     !!cachedUserInfo ? resolve(cachedUserInfo) : reject(null)
                 }, reject)
             })
@@ -49,3 +49,6 @@ module.exports={
             return cachedUserInfo
         }
 }
+
+
+
