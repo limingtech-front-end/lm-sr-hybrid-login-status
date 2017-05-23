@@ -21,7 +21,7 @@ function getLoginStatusFunc(success, fail) {
         cachedIsLogedin = !!userInfo.userId
         cachedUserInfo = userInfo
         success && success()
-    }, (err) => {
+    }, function(err){
         cachedIsLogedin = false
         cachedUserInfo = null
         fail && fail(err)
