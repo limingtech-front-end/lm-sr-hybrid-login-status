@@ -17,7 +17,7 @@ var cachedIsLogedin = false,
 
 function getLoginStatusFunc(success, fail) {
     console.log('getting login status')
-    getLoginStatus().then((userInfo) => {
+    getLoginStatus().then(function(userInfo){
         cachedIsLogedin = !!userInfo.userId
         cachedUserInfo = userInfo
         success && success()
