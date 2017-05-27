@@ -10,39 +10,42 @@ var cachedIsLogedin = false,
         native: nativeLoginStatus,
         wechat: wechatLoginStatus,
         browser: function(){
+            console.log('in browser')
             var localSavedUserInfo=localStorage.getItem('user')
             return localSavedUserInfo ? Promise.resolve(JSON.parse(localSavedUserInfo)) : Promise.reject({})
         }
     })
 
-function getLoginStatusFunc(success, fail) {
-    console.log('getting login status')
-    getLoginStatus().then(function(userInfo){
-        cachedIsLogedin = !!userInfo.userId
-        cachedUserInfo = userInfo
-        success && success()
-    }, function(err){
-        cachedIsLogedin = false
-        cachedUserInfo = null
-        fail && fail(err)
-    })
+function getLoginStatusFunc() {
+        console.log('getting login status')
+        return new Promise(function(resolve,reject){
+            getLoginStatus().then(function(userInfo){
+                cachedIsLogedin = !!userInfo.userId
+                cachedUserInfo = userInfo
+                cachedIsLogedin ? resolve() : reject()
+            }, function(){
+                cachedIsLogedin = false
+                cachedUserInfo = null
+                reject()
+            })
+        })
 }
 
 module.exports={
         isLogedin:function() {
-            return new Promise(function(resolve, reject){
-                console.log('trigger login check')
-                getLoginStatusFunc(function(){
-                    cachedIsLogedin ? resolve(true) : reject(false)
-                },reject)
+
+            return getLoginStatusFunc().then(function(){
+                return true
+            },function(){
+                return false
             })
+
         },
         userInfo:function() {
-            return new Promise(function(resolve, reject){
-                console.log('trigger getting userInfo')
-                getLoginStatusFunc(function(){
-                    !!cachedUserInfo ? resolve(cachedUserInfo) : reject(null)
-                }, reject)
+            return getLoginStatusFunc().then(function(){
+                return cachedUserInfo
+            },function(){
+                return null
             })
         },
         _cachedUserInfo:function() {
